@@ -59,9 +59,6 @@
         </form>
     </nav>
   </header>
-
-  <form>
-  </form>
 </template>
 
 <script>
