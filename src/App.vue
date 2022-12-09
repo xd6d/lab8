@@ -2,7 +2,7 @@
 
     <Header/>
 
-    <main style="flex: 1 1 auto">
+    <main class="flex-grow-1 container-fluid p-3">
       <router-view />
     </main>
 

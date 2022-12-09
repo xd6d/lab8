@@ -1,6 +1,6 @@
 <template>
-  <footer class="text-center">
-    <p>© 2022 All Rights Are Not Reserved</p>
+  <footer class="container">
+    <p class="text-center text-muted pt-3 mt-5 border-top">© 2022 Kurkin & Paukov</p>
   </footer>
 </template>
 
