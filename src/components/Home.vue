@@ -24,4 +24,5 @@ export default {
 
 <style>
 @import 'bootstrap';
+@import 'bootstrap-icons';
 </style>
