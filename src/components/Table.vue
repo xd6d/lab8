@@ -1,6 +1,6 @@
 <template>
-<!--  TODO temporary-->
-  {{error}}
+  <!--  TODO temporary-->
+  {{ error }}
   <table class="table table-hover table-bordered table-responsive">
     <thead>
     <tr>
@@ -17,7 +17,7 @@
         <!--TODO не туду, просто чтобы заметил, сделал выбор типа инпута в зависимости от указаного
         TODO (соответственно и изменил проперти от текста до объекта с полями) пока что name - то что было раньше, type-тип,
         TODO если у нас поле сущности другая сущность - в селект опшонс мы передадим массив с опциями, пока
-        TODO формат такой selectOptions:[{value:Сам Объект, label - что будет показывать,
+        TODO формат такой selectOptions:[{value:Сам Массив, label - что будет показывать,
          не функция по тому что в-селект не позволяет, для людей все еще прийдется создать fullName ну или придумать что то поумнее:) }]
         TODO Удалить при прочтении-->
         <template v-else>
@@ -26,8 +26,8 @@
                  v-model="object[property.name]">
           <input v-else-if="property.type==='phone'" type="text" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
-          <v-select v-else-if="property.type==='select'" :options="selectOptions[property.name].value"
-                    :label="property.selectOptions[property.name].label"></v-select>
+          <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
+                    :label="property.selectOptions.label"></v-select>
         </template>
       </td>
       <td v-if="updateForm === object.id">
@@ -79,9 +79,11 @@ export default {
       try {
         await http.updateOne(this.link, object.id, object);
         this.showUpdateForm(false)
-        //TODO temporary
-      } catch (error) {
-        this.error = error.message;
+      } catch (erString) {
+        const error = JSON.parse(erString.message);
+        //TODO Create place for errors show P.S. we get an array of errors, each element of array contains
+        //TODO {message, id, entity}, for instance {message:'Скорочену назву необхідно вказати', id:'2',entity:'faculties'}
+        this.error = error[0].message;
       }
     },
     showUpdateForm(object) {
@@ -102,13 +104,15 @@ export default {
           await http.deleteOne(this.link, object.id);
           removeByAttr(this.objects, 'id', object.id);
           //TODO temporary
-        } catch (error) {
+        } catch (errorString) {
+          const error = JSON.parse(errorString);
           this.error = error.message;
         }
       }
     }
   }
 }
+
 </script>
 
 <style scoped>
