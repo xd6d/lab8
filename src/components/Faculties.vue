@@ -17,7 +17,7 @@
       <button class="btn btn-outline-secondary">Створити</button>
     </fieldset>
   </form>
-  <Table :headers="['Назва', 'Скорочена назва']" :objects="faculties" :properties="['name', 'shortName']"
+  <Table link="faculty" :headers="['Назва', 'Скорочена назва']" :objects="faculties" :properties="[{name:'name', type:'text'}, {name:'shortName', type:'text'}]"
                 :label="(o) => o.shortName"/>
 </template>
 
