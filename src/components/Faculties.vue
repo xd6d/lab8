@@ -33,30 +33,7 @@ export default {
         shortName: 'ІАТЕ'
       }
     ]
-  }),
-  methods: {
-    getObjects() {
-      //TODO axios get all faculties and sort by id
-    },
-    showCreate() {
-      this.create = !this.create
-    },
-    showUpdateForm(faculty) {
-      this.updateRemove = !this.updateRemove
-      this.updateForm = faculty.id
-    },
-    confirmRemove(faculty) {
-      if (confirm('Ви точно бажаєте видалити запис про ' + faculty.shortName + '?')) {
-        //TODO axios remove faculty
-      }
-    },
-    updateFaculty(faculty) {
-      document.getElementById('name' + faculty.id).value;//name
-      document.getElementById('sname' + faculty.id).value;//shortName
-      //TODO axios update faculty
-      this.showUpdateForm(false)
-    }
-  }
+  })
 }
 </script>
 

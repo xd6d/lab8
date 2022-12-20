@@ -18,8 +18,9 @@
                v-mask="'+38(0##)###-##-##'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
-        <v-select v-else-if="property.type==='select'" :options="property.selectOptions[property.name].value"
-                  :label="property.selectOptions[property.name].label"></v-select>
+        <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
+                  :label="property.selectOptions.label"
+                  style="margin-left: 5px; min-width: 114px; align-content: center"></v-select>
       </div>
       <button class="btn btn-outline-secondary" @click="create()">Створити</button>
     </fieldset>
@@ -27,7 +28,7 @@
   <table class="table table-hover table-bordered table-responsive">
     <thead>
     <tr>
-      <th v-for="header in headers">{{ header }}</th>
+      <th v-for="header of headers">{{ header }}</th>
       <th scope="col" v-if="updateRemove">Змінити/Видалити</th>
       <th scope="col" v-if="updateForm || updateForm === 0">Змінити</th>
     </tr>
@@ -35,15 +36,18 @@
     <tbody>
     <tr v-for="object of objects" v-bind:class="{'table-danger': error.id === object.id}">
       <td v-for="property of properties">
-        <span v-if="updateForm === false || updateForm !== object.id" v-text="object[property.name]"/>
+        <template v-if="updateForm === false || updateForm !== object.id">
+          <span v-if="property['type'] === 'select'" v-text="object[property.name][property.selectOptions['label']]"/>
+          <span v-else v-text="object[property.name]"/>
+        </template>
         <template v-else>
           <input v-if="property.type==='text' || !property.type" type="text" class="col-12"
                  v-bind:id="property.name+object.id"
                  v-model="object[property.name]">
           <input v-else-if="property.type==='phone'" type="text" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
-          <v-select v-else-if="property.type==='select'" :options="property.selectOptions[property.name].value"
-                    :label="property.selectOptions[property.name].label"></v-select>
+          <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
+                    :label="property.selectOptions.label"></v-select>
         </template>
       </td>
       <td v-if="updateForm === object.id">
