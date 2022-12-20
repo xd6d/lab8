@@ -9,9 +9,7 @@ import Table from "./Table.vue";
 
 export default {
   name: "Faculties",
-  components: {Table},
-  data: () => ({
-  }),
+  components: {Table}
 }
 </script>
 

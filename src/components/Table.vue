@@ -1,5 +1,6 @@
 <template>
   <!--  TODO mobile adaptivity-->
+  <!--  TODO v-select adaptivity like in Home.vue-->
   <h5 class="text-center text-danger" v-show="error">{{ error.message }}</h5>
   <div class="d-flex flex-row justify-content-between mb-1">
     <input v-model="searchContent" placeholder="Пошук" class="form-control-sm border">
@@ -167,7 +168,4 @@ export default {
 </script>
 
 <style scoped>
-.min-w-2000{
-  min-width: 2000px;
-}
 </style>
