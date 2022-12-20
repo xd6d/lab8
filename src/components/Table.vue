@@ -1,12 +1,11 @@
 <template>
-
   <h5 class="text-center text-danger" v-show="error">{{ error.message }}</h5>
   <div class="container-fluid d-flex flex-row justify-content-end mb-1">
     <div class="btn-group-sm mx-1">
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>
   </div>
-  <form class="border border-start my-2" v-show="createForm">
+  <form class="border border-start my-2" v-show="createForm" @submit.prevent="create()">
     <fieldset class="d-flex p-2">
       <legend class="m-0">Створити</legend>
       <div v-for="property of properties" class="me-1">
@@ -22,7 +21,7 @@
                   :label="property.selectOptions.label"
                   style="margin-left: 5px; min-width: 114px; align-content: center"></v-select>
       </div>
-      <button class="btn btn-outline-secondary" @click="create()">Створити</button>
+      <button class="btn btn-outline-secondary">Створити</button>
     </fieldset>
   </form>
   <table class="table table-hover table-bordered table-responsive">
@@ -85,13 +84,11 @@ export default {
     'objects',
     'properties',
     'label',
-    //faculties, disciplines etc.
     'link'
   ],
   data: () => ({
-    //TODO TEMPORARY
+
     error: '',
-    // error: {id: 1, message: 'Виникла помилка: неправильно ведено дані. Зеленскі забрати один арбуз.'},
     createForm: false,
     updateRemove: true,
     updateForm: false,
@@ -112,13 +109,10 @@ export default {
     async update(object) {
       try {
         await http.updateOne(this.link, object.id, object);
-        this.showUpdateForm(false)
+        this.hideUpdateForm()
       } catch (erString) {
         const error = JSON.parse(erString.message);
-        //TODO Create place for errors show P.S. we get an array of errors, each element of array contains
-        //TODO {message, id, entity}, for instance {message:'Скорочену назву необхідно вказати', id:'2',entity:'faculties'}
-        this.error = error[0].message;
-
+        this.error = error[0];
       }
     },
     showCreate() {
@@ -132,6 +126,7 @@ export default {
     hideUpdateForm() {
       this.updateRemove = true
       this.updateForm = false
+      this.error = ''
     },
     rollbackObject(object) {
       for (let i in object)

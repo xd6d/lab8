@@ -1,9 +1,8 @@
 <template>
 
-  <Table link="faculty" :headers="['Назва', 'Скорочена назва']" :objects="faculties"
+  <Table link="faculties" :headers="['Назва', 'Скорочена назва']" :objects="faculties"
          :properties="[{name:'name', type:'text'}, {name:'shortName', type:'text'}]"
          :label="(o) => o.shortName"/>
->>>>>>> 7f43645d73c95dd78386c48b78346ff71ebc7d58
 </template>
 
 <script>
@@ -14,28 +13,7 @@ export default {
   name: "Faculties",
   components: {Table},
   data: () => ({
-    faculties: [
-      {
-        id: 0,
-        name: 'Факультет інформатики та обчислювальної техніки',
-        shortName: 'ФІОТ'
-      },
-      {
-        id: 1,
-        name: 'Факультет менеджменту та маркетингу',
-        shortName: 'ФММ'
-      },
-      {
-        id: 2,
-        name: 'Хіміко-технологічний факультет',
-        shortName: 'ХТФ'
-      },
-      {
-        id: 3,
-        name: 'Інститут атомної та теплової енергетики',
-        shortName: 'ІАТЕ'
-      }
-    ]
+    faculties: ''
   }),
   methods: {
     getObjects() {
