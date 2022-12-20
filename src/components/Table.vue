@@ -1,13 +1,13 @@
 <template>
+  <!--  TODO mobile adaptivity-->
   <h5 class="text-center text-danger" v-show="error">{{ error.message }}</h5>
-  <div class="container-fluid d-flex flex-row justify-content-end mb-1">
-    <div class="btn-group-sm mx-1">
+  <div class="d-flex flex-row justify-content-between mb-1">
+    <input v-model="searchContent" placeholder="Пошук" class="form-control-sm border">
+    <div class="btn-group-sm mx-1 me-2">
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>
   </div>
-  <!--  TODO replace with normal search-->
-  <input v-model="searchContent">
-  <form class="border border-start my-2" v-show="createForm" @submit.prevent="createOne()">
+  <form class="border border-start my-2" v-show="createForm" @submit="createObject()">
     <fieldset class="d-flex p-2">
       <legend class="m-0">Створити</legend>
       <div v-for="property of properties" class="me-1">
@@ -15,13 +15,15 @@
                v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
-        <input v-else-if="property.type==='phone'" type="text" class="form-control" v-bind:id="property.name+'new'"
+        <input v-else-if="property.type==='tel'" type="tel" class="form-control" v-bind:id="property.name+'new'"
                v-mask="'+38(0##)###-##-##'"
                v-model="newObject[property.name]"
-               v-bind:placeholder="headers[properties.indexOf(property)]">
+               placeholder="+38(0"
+               style="min-width: 166px">
         <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
                   :label="property.selectOptions.label"
-                  style="margin-left: 5px; min-width: 114px; align-content: center"></v-select>
+                  style="margin-left: 5px; min-width: 125px"
+                  v-bind:placeholder="headers[properties.indexOf(property)]"></v-select>
       </div>
       <button class="btn btn-outline-secondary">Створити</button>
     </fieldset>
@@ -35,7 +37,6 @@
     </tr>
     </thead>
     <tbody>
-
     <tr v-for="object of objects" v-bind:class="{'table-danger': error.id === object.id}">
       <td v-for="property of properties">
         <template v-if="updateForm === false || updateForm !== object.id">
@@ -46,7 +47,7 @@
           <input v-if="property.type==='text' || !property.type" type="text" class="col-12"
                  v-bind:id="property.name+object.id"
                  v-model="object[property.name]">
-          <input v-else-if="property.type==='phone'" type="text" class="col-12" v-bind:id="property.name+object.id"
+          <input v-else-if="property.type==='tel'" type="tel" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
           <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
                     :label="property.selectOptions.label"></v-select>
@@ -114,9 +115,9 @@ export default {
       return getAll(this.link, this.startParams?.page, this.startParams?.elementsPerPage, this.startParams?.sortDirection,
           this.startParams?.sortField || 'name');
     },
-    async createObject(object) {
+    async createObject() {
       try {
-        return await createOne('faculties', object);
+        await createOne('faculties', this.newObject);
       } catch (erString) {
         const error = JSON.parse(erString.message);
         this.error = error[0];
@@ -166,5 +167,7 @@ export default {
 </script>
 
 <style scoped>
-
+.min-w-2000{
+  min-width: 2000px;
+}
 </style>

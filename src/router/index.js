@@ -5,7 +5,7 @@ import Departments from "../components/Departments.vue";
 import Groups from "../components/Groups.vue";
 import Students from "../components/Students.vue";
 import Teachers from "../components/Teachers.vue";
-import Subjects from "../components/Subjects.vue";
+import Subjects from "../components/Disciplines.vue";
 import Faq from "../components/Faq.vue";
 
 const routes = [

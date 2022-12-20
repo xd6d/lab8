@@ -1,6 +1,8 @@
 <template>
-  <Table link="departments" :headers="['Факультет', 'Назва', 'Скорочена назва']"
-         :properties="[{name:'faculty', type:'select', selectOptions: {value: faculties, label: 'shortName'}}, {name:'name', type:'text'}, {name:'shortName', type:'text'}]"
+  <Table link="departments" :headers="['Назва', 'Скорочена назва', 'Факультет']"
+         :properties="[{name:'name', type:'text'},
+                       {name:'shortName', type:'text'},
+                       {name:'faculty', type:'select', selectOptions: {value: faculties, label: 'shortName'}}]"
          :label="(o) => o.shortName"/>
 </template>
 
