@@ -5,7 +5,7 @@
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>
   </div>
-  //TODO replace with normal search
+  <!--  TODO replace with normal search-->
   <input v-model="searchContent">
   <form class="border border-start my-2" v-show="createForm" @submit.prevent="createOne()">
     <fieldset class="d-flex p-2">
@@ -76,7 +76,7 @@ import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css'
 import * as http from '../services/httpService';
 import {removeByAttr} from "../services/utilsService";
-import {getAll, searchAll} from "../services/httpService";
+import {createOne, getAll, searchAll} from "../services/httpService";
 
 export default {
   name: "Table",
@@ -89,16 +89,14 @@ export default {
     'link',
     'startParams'
   ],
-  watch:{
-    'searchContent':{
-      async handler(value) {
-        this.objects = (await searchAll(this.link, 'name', {name: value}));
-      }
+  watch: {
+    async searchContent(value) {
+      this.objects = (await searchAll(this.link, 'name', {name: value}));
     }
   },
   data: () => ({
-    searchContent:'',
-    objects:'',
+    searchContent: '',
+    objects: '',
     error: '',
     createForm: false,
     updateRemove: true,
@@ -106,27 +104,22 @@ export default {
     newObject: {},
     initialObject: ''
   }),
-  async created() {
 
+  async created() {
     this.objects = (await this.getAllObjects()).content;
-    console.log(this.objects);
   },
 
-
   methods: {
-
     getAllObjects() {
       return getAll(this.link, this.startParams?.page, this.startParams?.elementsPerPage, this.startParams?.sortDirection,
           this.startParams?.sortField || 'name');
     },
-    async createOne() {
+    async createObject(object) {
       try {
-        //todo axios create this.newObject
-        this.showCreate()
-        this.newObject = {}
-        //TODO temporary
-      } catch (error) {
-        this.error = error;
+        return await createOne('faculties', object);
+      } catch (erString) {
+        const error = JSON.parse(erString.message);
+        this.error = error[0];
       }
     },
     async update(object) {

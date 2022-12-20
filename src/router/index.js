@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router/dist/vue-router.esm-bundler'
+import {createRouter, createWebHistory} from 'vue-router/dist/vue-router.esm-bundler'
 import Home from '../components/Home.vue'
 import Faculties from "../components/Faculties.vue";
 import Departments from "../components/Departments.vue";

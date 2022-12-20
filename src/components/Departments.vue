@@ -15,7 +15,6 @@ export default {
     faculties: ''
   }),
   methods: {
-
     getFaculties() {
       return getAll('faculties', 0, 100, 'ASC', 'name');
     }

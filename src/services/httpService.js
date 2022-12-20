@@ -13,10 +13,12 @@ export async function getAll(entity, page = 0, elementsPerPage = 10, sortDirecti
         throw new Error(e.response?.data?.message || e.message);
     }
 }
-export async function searchAll(entity, field='name', params){
+
+export async function searchAll(entity, field = 'name', params) {
     try {
-        return (await request.get(link + entity +'/search/' + field, {
-            params:{...params}})).data
+        return (await request.get(link + entity + '/search/' + field, {
+            params: {...params}
+        })).data
     } catch (e) {
         throw new Error(e.response?.data?.message || e.message);
     }
@@ -39,9 +41,9 @@ export async function updateOne(entity, id, data) {
     } catch (e) {
         const messageList = e.response.data.message;
         const res = [];
-        for(let message of messageList) {
+        for (let message of messageList) {
             const field = message.split(" ")[0];
-            res.push({entity:entity, id:id, message:translate[entity][field][message]});
+            res.push({entity: entity, id: id, message: translate[entity][field][message]});
         }
         throw new Error(JSON.stringify(res));
     }
@@ -53,9 +55,9 @@ export async function createOne(entity, data) {
     } catch (e) {
         const messageList = e.response.data.message;
         const res = [];
-        for(let message of messageList) {
+        for (let message of messageList) {
             const field = message.split(" ")[0];
-            res.push({entity:entity, id:null, message:translate[entity][field][message]});
+            res.push({entity: entity, id: null, message: translate[entity][field][message]});
         }
         throw new Error(JSON.stringify(res));
     }
@@ -65,7 +67,7 @@ export async function deleteOne(entity, id) {
     try {
         return await request.delete(link + entity + '/' + id);
     } catch (e) {
-        throw new Error(JSON.stringify({entity:entity, id: id, message:e.response.data.message}));
+        throw new Error(JSON.stringify({entity: entity, id: id, message: e.response.data.message}));
     }
 }
 
