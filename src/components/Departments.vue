@@ -1,5 +1,5 @@
 <template>
-  <Table link="departments" :headers="['Факультет', 'Назва', 'Скорочена назва']" :objects="departments"
+  <Table link="departments" :headers="['Факультет', 'Назва', 'Скорочена назва']"
          :properties="[{name:'faculty', type:'select', selectOptions: {value: faculties, label: 'shortName'}}, {name:'name', type:'text'}, {name:'shortName', type:'text'}]"
          :label="(o) => o.shortName"/>
 </template>
@@ -12,19 +12,15 @@ export default {
   name: "Departments",
   components: {Table},
   data: () => ({
-    departments: '',
     faculties: ''
   }),
   methods: {
-    getDepartments() {
-      return getAll('departments',0,100,'ASC','name');
-    },
+
     getFaculties() {
       return getAll('faculties', 0, 100, 'ASC', 'name');
     }
   },
-  async created(){
-    this.departments = (await this.getDepartments()).content;
+  async created() {
     this.faculties = (await this.getFaculties()).content;
   }
 }

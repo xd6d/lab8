@@ -1,16 +1,24 @@
 import request from "axios";
+import f from "vue-select";
 
 const link = "http://localhost:8080/"
 
-//TODO convert errors to ua
 export async function getAll(entity, page = 0, elementsPerPage = 10, sortDirection, sortField) {
     try {
         return (await request.get(link + entity, {
             params:
                 {page: page, elementsPerPage: elementsPerPage, sortDirection: sortDirection, sortField: sortField}
-        })).data
+        })).data;
     } catch (e) {
-        throw new Error(e.response.data.message);
+        throw new Error(e.response?.data?.message || e.message);
+    }
+}
+export async function searchAll(entity, field='name', params){
+    try {
+        return (await request.get(link + entity +'/search/' + field, {
+            params:{...params}})).data
+    } catch (e) {
+        throw new Error(e.response?.data?.message || e.message);
     }
 }
 

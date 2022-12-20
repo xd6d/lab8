@@ -1,6 +1,6 @@
 <template>
 
-  <Table link="faculties" :headers="['Назва', 'Скорочена назва']" :objects="faculties"
+  <Table link="faculties" :headers="['Назва', 'Скорочена назва']"
          :properties="[{name:'name', type:'text'}, {name:'shortName', type:'text'}]"
          :label="(o) => o.shortName"/>
 </template>
@@ -13,12 +13,9 @@ export default {
   name: "Faculties",
   components: {Table},
   data: () => ({
-    faculties: ''
   }),
   methods: {
-    getObjects() {
-      return getAll('faculties',0,100,'ASC','name');
-    },
+
     async createObject(object) {
       try {
         return await createOne('faculties', object);
@@ -31,9 +28,6 @@ export default {
         },
 
   },
-  async created(){
-    this.faculties = (await this.getObjects()).content;
-  }
 }
 </script>
 

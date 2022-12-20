@@ -5,7 +5,9 @@
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>
   </div>
-  <form class="border border-start my-2" v-show="createForm" @submit.prevent="create()">
+  //TODO replace with normal search
+  <input v-model="searchContent">
+  <form class="border border-start my-2" v-show="createForm" @submit.prevent="createOne()">
     <fieldset class="d-flex p-2">
       <legend class="m-0">Створити</legend>
       <div v-for="property of properties" class="me-1">
@@ -74,6 +76,7 @@ import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css'
 import * as http from '../services/httpService';
 import {removeByAttr} from "../services/utilsService";
+import {getAll, searchAll} from "../services/httpService";
 
 export default {
   name: "Table",
@@ -81,13 +84,21 @@ export default {
   components: {vSelect},
   props: [
     'headers',
-    'objects',
     'properties',
     'label',
-    'link'
+    'link',
+    'startParams'
   ],
+  watch:{
+    'searchContent':{
+      async handler(value) {
+        this.objects = (await searchAll(this.link, 'name', {name: value}));
+      }
+    }
+  },
   data: () => ({
-
+    searchContent:'',
+    objects:'',
     error: '',
     createForm: false,
     updateRemove: true,
@@ -95,8 +106,20 @@ export default {
     newObject: {},
     initialObject: ''
   }),
+  async created() {
+
+    this.objects = (await this.getAllObjects()).content;
+    console.log(this.objects);
+  },
+
+
   methods: {
-    async create() {
+
+    getAllObjects() {
+      return getAll(this.link, this.startParams?.page, this.startParams?.elementsPerPage, this.startParams?.sortDirection,
+          this.startParams?.sortField || 'name');
+    },
+    async createOne() {
       try {
         //todo axios create this.newObject
         this.showCreate()
