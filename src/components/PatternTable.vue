@@ -34,8 +34,15 @@
                style="min-width: 166px">
         <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
                   :label="property.selectOptions.label"
+                  v-model="newObject[property.name]"
                   style="margin-left: 5px; min-width: 125px"
                   v-bind:placeholder="headers[properties.indexOf(property)]"></v-select>
+        <v-select v-else-if="property.type==='selectConvert'"
+                  :placeholder="headers[properties.indexOf(property)]"
+                  v-model="newObject[property.name]"
+                  :reduce="property.selectOptions.reduce" :options="property.selectOptions.value"
+                  :label="property.selectOptions.label"></v-select>
+
       </div>
       <button class="btn btn-outline-secondary">Створити</button>
     </fieldset>
@@ -53,7 +60,9 @@
       <td v-for="property of properties">
         <template v-if="updateForm === false || updateForm !== object.id">
           <span v-if="property.type === 'select'" v-text="object[property.name][property.selectOptions.label]"/>
+          <span v-else-if="property.type === 'selectConvert'">{{property.selectOptions.convert(object[property.name])[property.selectOptions.label]}}</span>
           <span v-else v-text="object[property.name]"/>
+
         </template>
         <template v-else>
           <input v-if="property.type==='text' || !property.type" type="text" class="col-12"
@@ -68,6 +77,8 @@
           <input v-else-if="property.type==='tel'" type="tel" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
           <v-select v-else-if="property.type==='select'" v-model="object[property.name]" :options="property.selectOptions.value"
+                    :label="property.selectOptions.label"></v-select>
+          <v-select v-else-if="property.type==='selectConvert'" v-model="object[property.name]" :reduce="property.selectOptions.reduce" :options="property.selectOptions.value"
                     :label="property.selectOptions.label"></v-select>
         </template>
       </td>
@@ -107,7 +118,7 @@ export default {
     label: {required: true},
     link: {required: true},
     startParams: {},
-    searchFunction: {required: false}
+    searchFunction: {required: false},
   },
   watch: {
     async searchContent(value) {
