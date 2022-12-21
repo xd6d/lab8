@@ -16,7 +16,7 @@
               {{day[i]?.discipline.name}}<br>
               {{day[i]?.teacher.surname}} {{day[i]?.teacher.name}}<br>
               {{day[i]?.group.name}}<br>
-              {{day[i]?.classroom}}
+              {{day[i]?.classroom}}<br>
             </p>
           </div>
         </div>
