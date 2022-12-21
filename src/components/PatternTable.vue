@@ -142,7 +142,13 @@ export default {
   }),
 
   async created() {
-    const res = (await this.getAllObjects()).content;
+    let res;
+    if(this.$route.query.search) {
+      this.searchContent = this.$route.query.search;
+      res = this.searchContent(this.searchContent);
+    } else{
+    res = (await this.getAllObjects()).content;
+    }
     if(this.link ==='schedules'){
       res.forEach(schedule=>schedule.teacher.fullName = schedule.teacher.name + ' ' + schedule.teacher.surname);
     }
