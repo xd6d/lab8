@@ -20,7 +20,13 @@
                v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
-
+        <input v-else-if="property.type==='number'" type="number" class="form-control"
+               v-bind:id="property.name+'new'"
+               v-model="newObject[property.name]"
+               v-bind:placeholder="headers[properties.indexOf(property)]"
+               v-bind:min="property.min"
+               v-bind:max="property.max"
+               style="min-width: 90px">
         <input v-else-if="property.type==='tel'" type="tel" class="form-control" v-bind:id="property.name+'new'"
                v-mask="'+38(0##)###-##-##'"
                v-model="newObject[property.name]"
@@ -56,7 +62,9 @@
           <input v-if="property.type==='email'" type="email" class="col-12"
                  v-bind:id="property.name+object.id"
                  v-model="object[property.name]">
-
+          <input v-if="property.type==='number'" type="number" class="col-12"
+                 v-bind:id="property.name+object.id"
+                 v-model="object[property.name]">
           <input v-else-if="property.type==='tel'" type="tel" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
           <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
@@ -75,7 +83,6 @@
         <button class="btn btn-sm btn-outline-danger ms-2" @click="confirmRemove(object)">
           <i class="bi-dash-circle"/>
         </button>
-
       </td>
     </tr>
     </tbody>
@@ -91,7 +98,7 @@ import {removeByAttr} from "../services/utilsService";
 import {createOne, getAll, searchAll} from "../services/httpService";
 
 export default {
-  name: "Table",
+  name: "PatternTable",
   directives: {mask},
   components: {vSelect},
   props: {
@@ -101,15 +108,14 @@ export default {
     link: {required: true},
     startParams: {},
     searchFunction: {required: false}
-
   },
   watch: {
     async searchContent(value) {
-      if(value.length===0){
+      if (value.length === 0) {
         this.objects = (await this.getAllObjects()).content;
         return;
       }
-      const searchFunction = this.searchFunction||this.defaultSearchFunction;
+      const searchFunction = this.searchFunction || this.defaultSearchFunction;
       this.objects = await (searchFunction(this.link, value));
     }
   },
@@ -129,7 +135,7 @@ export default {
   },
 
   methods: {
-    defaultSearchFunction(link, value){
+    defaultSearchFunction(link, value) {
       return searchAll(link, 'name', {name: value});
     },
     getAllObjects() {
@@ -175,7 +181,6 @@ export default {
         try {
           await http.deleteOne(this.link, object.id);
           removeByAttr(this.objects, 'id', object.id);
-          //TODO temporary
         } catch (errorString) {
           const error = JSON.parse(errorString);
           this.error = error.message;

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Table from "./Table.vue";
+import Table from "./PatternTable.vue";
 import {getAll, searchAll} from "../services/httpService";
 export default {
   name: "Students",

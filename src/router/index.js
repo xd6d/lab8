@@ -7,6 +7,7 @@ import Students from "../components/Students.vue";
 import Teachers from "../components/Teachers.vue";
 import Subjects from "../components/Disciplines.vue";
 import Faq from "../components/Faq.vue";
+import Schedules from "../components/Schedules.vue";
 
 const routes = [
     {
@@ -36,6 +37,10 @@ const routes = [
     {
         path: '/subjects',
         component: Subjects
+    },
+    {
+        path: '/schedules',
+        component: Schedules
     },
     {
         path: '/faq',

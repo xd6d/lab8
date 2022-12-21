@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Table from "./Table.vue";
+import Table from "./PatternTable.vue";
 export default {
   name: "Subjects",
   components: {Table}

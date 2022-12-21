@@ -5,18 +5,14 @@
               v-model="this.group"
               id="select"/>
   </form>
-<!--  <Table link="departments" :headers="['Назва', 'Скорочена назва', 'Факультет']"-->
-<!--         :properties="[{name:'name', type:'text'},-->
-<!--                       {name:'shortName', type:'text'},-->
-<!--                       {name:'faculty', type:'select', selectOptions: {value: faculties, label: 'shortName'}}]"-->
-<!--         :label="(o) => o.shortName"/>-->
+
 </template>
 
 <script>
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css'
 import {getAll} from "../services/httpService";
-import Table from "./Table.vue";
+import Table from "./PatternTable.vue";
 
 export default {
   name: "Home",
@@ -24,7 +20,7 @@ export default {
   data: () => ({
     group: '',
     groups: '',
-    schedules: ''
+    schedulesByGroup: ''
   }),
   watch: {
     group(){

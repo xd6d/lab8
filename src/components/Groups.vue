@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Table from "./Table.vue";
+import Table from "./PatternTable.vue";
 import {getAll} from "../services/httpService";
 
 export default {

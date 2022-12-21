@@ -37,6 +37,11 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/schedules" class="nav-link" exact-active-class="active">
+              <h3>Schedules</h3>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/faq" class="nav-link" exact-active-class="active">
               <h3>FAQ</h3>
             </router-link>
