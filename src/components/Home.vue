@@ -34,15 +34,15 @@ export default {
   methods: {
     getGroups() {
       return getAll('groups', 0, 100, 'ASC', 'name');
-    },
-    getSchedules() {
-      return getAll('schedules', 0, 100, 'ASC', 'name');
     }
   },
   async created() {
     this.groups = (await this.getGroups()).content;
-    this.schedules = (await this.getSchedules()).content;
-  }
+  },
+  //schedules query
+  async getSchedulesByGroup(groupId){
+    return getAll("schedules/by/group", 0 ,100, 'ASC', 'dayOfWeek',{group:groupId})
+}
 }
 </script>
 
