@@ -42,8 +42,11 @@ export default {
     this.groups = (await this.getGroups()).content;
     this.schedules = (await this.getSchedules()).content;
     this.disciplines = (await this.getDisciplines()).content;
-    this.teachers = (await this.getTeachers()).content;
-    this.teachers.forEach((o) => (o.fullName = o.name + ' ' + o.surname));
+    const teachers = (await this.getTeachers()).content;
+    teachers.forEach((o) => (o.fullName = o.name + ' ' + o.surname));
+    console.log(teachers[0]);
+    this.teachers = teachers;
+    console.log(this.teachers[0])
   }
 }
 </script>

@@ -8,7 +8,7 @@
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>
   </div>
-  <form class="border border-start my-2" v-show="createForm" @submit="createObject()">
+  <form class="border border-start my-2" v-show="createForm" @submit.prevent="createObject()">
     <fieldset class="d-flex p-2">
       <legend class="m-0">Створити</legend>
       <div v-for="property of properties" class="me-1">
@@ -52,7 +52,7 @@
     <tr v-for="object of objects" v-bind:class="{'table-danger': error.id === object.id}">
       <td v-for="property of properties">
         <template v-if="updateForm === false || updateForm !== object.id">
-          <span v-if="property['type'] === 'select'" v-text="object[property.name][property.selectOptions['label']]"/>
+          <span v-if="property.type === 'select'" v-text="object[property.name][property.selectOptions.label]"/>
           <span v-else v-text="object[property.name]"/>
         </template>
         <template v-else>
@@ -67,7 +67,7 @@
                  v-model="object[property.name]">
           <input v-else-if="property.type==='tel'" type="tel" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
-          <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
+          <v-select v-else-if="property.type==='select'" v-model="object[property.name]" :options="property.selectOptions.value"
                     :label="property.selectOptions.label"></v-select>
         </template>
       </td>
@@ -131,8 +131,12 @@ export default {
   }),
 
   async created() {
-    this.objects = (await this.getAllObjects()).content;
-  },
+    const res = (await this.getAllObjects()).content;
+    if(this.link ==='schedules'){
+      res.forEach(schedule=>schedule.teacher.fullName = schedule.teacher.name + ' ' + schedule.teacher.surname);
+    }
+    this.objects = res;
+    },
 
   methods: {
     defaultSearchFunction(link, value) {
@@ -144,7 +148,8 @@ export default {
     },
     async createObject() {
       try {
-        await createOne('faculties', this.newObject);
+        await createOne(this.link, this.newObject);
+        this.$router.go();
       } catch (erString) {
         const error = JSON.parse(erString.message);
         this.error = error[0];
