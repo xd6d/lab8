@@ -3,11 +3,11 @@ import f from "vue-select";
 
 const link = "http://localhost:8080/"
 
-export async function getAll(entity, page = 0, elementsPerPage = 10, sortDirection, sortField) {
+export async function getAll(entity, page = 0, elementsPerPage = 10, sortDirection, sortField, params={}) {
     try {
         return (await request.get(link + entity, {
             params:
-                {page: page, elementsPerPage: elementsPerPage, sortDirection: sortDirection, sortField: sortField}
+                {page: page, elementsPerPage: elementsPerPage, sortDirection: sortDirection, sortField: sortField, ...params}
         })).data;
     } catch (e) {
         throw new Error(e.response?.data?.message || e.message);

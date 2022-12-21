@@ -22,7 +22,11 @@ export default {
   },
   async created() {
     this.groups = (await this.getGroups()).content;
-  }
+  },
+  //schedules query
+  async getSchedulesByGroup(groupId){
+    return getAll("schedules/by/group", 0 ,100, 'ASC', 'dayOfWeek',{group:groupId})
+}
 }
 </script>
 
