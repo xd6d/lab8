@@ -57,4 +57,18 @@ export default {
 
 <style>
 @import 'bootstrap';
+@media screen and (max-width: 1000px){
+  .container-fluid{
+    flex-direction: column;
+  }
+  .navbar-nav{
+    width: 100%;
+    flex-direction: row!important;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .navbar-nav>*{
+    padding: 0 5px;
+  }
+}
 </style>
