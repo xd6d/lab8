@@ -16,6 +16,11 @@
                v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
+        <input v-else-if="property.type==='email'" type="email" class="form-control"
+               v-bind:id="property.name+'new'"
+               v-model="newObject[property.name]"
+               v-bind:placeholder="headers[properties.indexOf(property)]">
+
         <input v-else-if="property.type==='tel'" type="tel" class="form-control" v-bind:id="property.name+'new'"
                v-mask="'+38(0##)###-##-##'"
                v-model="newObject[property.name]"
@@ -48,6 +53,10 @@
           <input v-if="property.type==='text' || !property.type" type="text" class="col-12"
                  v-bind:id="property.name+object.id"
                  v-model="object[property.name]">
+          <input v-if="property.type==='email'" type="email" class="col-12"
+                 v-bind:id="property.name+object.id"
+                 v-model="object[property.name]">
+
           <input v-else-if="property.type==='tel'" type="tel" class="col-12" v-bind:id="property.name+object.id"
                  v-mask="'+38(0##)###-##-##'" v-model="object[property.name]">
           <v-select v-else-if="property.type==='select'" :options="property.selectOptions.value"
@@ -66,6 +75,7 @@
         <button class="btn btn-sm btn-outline-danger ms-2" @click="confirmRemove(object)">
           <i class="bi-dash-circle"/>
         </button>
+
       </td>
     </tr>
     </tbody>
@@ -84,16 +94,23 @@ export default {
   name: "Table",
   directives: {mask},
   components: {vSelect},
-  props: [
-    'headers',
-    'properties',
-    'label',
-    'link',
-    'startParams'
-  ],
+  props: {
+    headers: {required: true},
+    properties: {required: true},
+    label: {required: true},
+    link: {required: true},
+    startParams: {},
+    searchFunction: {required: false}
+
+  },
   watch: {
     async searchContent(value) {
-      this.objects = (await searchAll(this.link, 'name', {name: value}));
+      if(value.length===0){
+        this.objects = (await this.getAllObjects()).content;
+        return;
+      }
+      const searchFunction = this.searchFunction||this.defaultSearchFunction;
+      this.objects = await (searchFunction(this.link, value));
     }
   },
   data: () => ({
@@ -112,6 +129,9 @@ export default {
   },
 
   methods: {
+    defaultSearchFunction(link, value){
+      return searchAll(link, 'name', {name: value});
+    },
     getAllObjects() {
       return getAll(this.link, this.startParams?.page, this.startParams?.elementsPerPage, this.startParams?.sortDirection,
           this.startParams?.sortField || 'name');

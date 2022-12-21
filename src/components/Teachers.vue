@@ -5,14 +5,22 @@
                        {name:'email', type:'email'},
                        {name:'phone', type:'tel'},
                        ]"
+         :search-function="searchFunction"
          :label="(o) => o.surname + ' ' + o.name"/>
 </template>
 
 <script>
 import Table from "./Table.vue";
+import {searchAll} from "../services/httpService";
 export default {
   name: "Teachers",
-  components: {Table}
+  components: {Table},
+  methods:{
+    searchFunction(link, value){
+      const [name, surname] = value.split(" ");
+      return  searchAll(link, 'name', {name, surname});
+    },
+  }
 }
 </script>
 
