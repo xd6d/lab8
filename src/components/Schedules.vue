@@ -24,29 +24,29 @@ export default {
     disciplines: '',
     teachers: '',
     daysOfWeek: [
-{name:'Понеділок', id:1},
-      {id:2,name: 'Вівторок'},
-      {id:3,name:'Середа'},
-      {id:4,name: 'Четвер'},
-      {id:5,name: "П'ятниця"},
-      {id:6,name: 'Субота'},
-      {id:7,name: 'Неділя'},
+      {name: 'Понеділок', id: 1},
+      {id: 2, name: 'Вівторок'},
+      {id: 3, name: 'Середа'},
+      {id: 4, name: 'Четвер'},
+      {id: 5, name: "П'ятниця"},
+      {id: 6, name: 'Субота'},
+      {id: 7, name: 'Неділя'},
     ],
     lessons: [
-      {id:1,value:'8:30'},
-      {id:2,value:'10:25'},
-      {id:3,value:'12:20'},
-      {id:4,value:'14:15'},
-      {id:5,value:'16:10'},
-      {id:6,value:'18:30'},
+      {id: 1, value: '8:30'},
+      {id: 2, value: '10:25'},
+      {id: 3, value: '12:20'},
+      {id: 4, value: '14:15'},
+      {id: 5, value: '16:10'},
+      {id: 6, value: '18:30'},
     ],
   }),
   methods: {
-    convertLesson(lesson){
-
-      return this.lessons.find(o=>o.id===+lesson) || {id:'', value:''};
-    },convertDayOfWeek(dow){
-      return this.daysOfWeek.find(o=>o.id===+dow) || {id:'', value:''};
+    convertLesson(lesson) {
+      return this.lessons.find(o => o.id === +lesson) || {id: '', value: ''};
+    },
+    convertDayOfWeek(dow) {
+      return this.daysOfWeek.find(o => o.id === +dow) || {id: '', value: ''};
     },
     getGroups() {
       return getAll('groups', 0, 100, 'ASC', 'name');
@@ -67,9 +67,7 @@ export default {
     this.disciplines = (await this.getDisciplines()).content;
     const teachers = (await this.getTeachers()).content;
     teachers.forEach((o) => (o.fullName = o.name + ' ' + o.surname));
-    console.log(teachers[0]);
     this.teachers = teachers;
-    console.log(this.teachers[0])
   }
 }
 </script>

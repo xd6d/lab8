@@ -1,9 +1,8 @@
 import request from "axios";
-import f from "vue-select";
 
 const link = "http://localhost:8080/"
 
-export async function getAll(entity, page = 0, elementsPerPage = 10, sortDirection, sortField, params={}) {
+export async function getAll(entity, page = 0, elementsPerPage = 100, sortDirection, sortField, params={}) {
     try {
         return (await request.get(link + entity, {
             params:
