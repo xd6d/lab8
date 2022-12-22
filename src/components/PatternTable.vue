@@ -12,6 +12,7 @@
     <fieldset class="d-flex p-2">
       <legend class="m-0">Створити</legend>
       <div v-for="property of properties" class="me-1">
+<!--        TODO do we need v-bind:id="property.name+'new'" ?-->
         <input v-if="property.type==='text' || !property.type" type="text" class="form-control"
                v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
@@ -62,7 +63,6 @@
           <span v-if="property.type === 'select'" v-text="object[property.name][property.selectOptions.label]"/>
           <span v-else-if="property.type === 'selectConvert'">{{property.selectOptions.convert(object[property.name])[property.selectOptions.label]}}</span>
           <span v-else v-text="object[property.name]"/>
-
         </template>
         <template v-else>
           <input v-if="property.type==='text' || !property.type" type="text" class="col-12"

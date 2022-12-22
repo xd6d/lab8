@@ -132,6 +132,15 @@ const translate = {
             'dayOfWeek is required': 'День тижня необхідно вказати',
             'dayOfWeek should be from 1 to 7': 'Некоректний день тижня'
         }
+    },
+    faq: {
+        question: {
+            'question is required': 'Питання необхідно вказати',
+
+        },
+        answer: {
+            'answer is required': 'Відповідь необхідно вказати',
+        }
     }
 }
 
