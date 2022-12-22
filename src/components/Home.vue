@@ -5,7 +5,7 @@
               v-model="this.group"
               id="select"/>
   </form>
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-4" v-if="this.group">
     <div class="row">
       <div class="col" v-for="day of days">
         <div class="card">
