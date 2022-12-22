@@ -10,9 +10,9 @@
       <div class="col" v-for="day of days">
         <div class="card">
           <h4 class="card-header" v-text="day.name"></h4>
-          <div class="card-body">
+          <div class="card-body bg-secondary bg-opacity-10">
             <p class="container-fluid border-bottom pt-1" v-for="i of 6"
-               v-bind:class="{'border border-success': currentLesson.day===day.index && currentLesson.lesson===i}">
+               v-bind:class="{'border border-success rounded-3 border-opacity-25 bg-gradient bg-opacity-10 bg-primary': currentLesson.day===day.index && currentLesson.lesson===i}">
               <span class="h5" v-text="lessonsTime[i]"></span><br>
               <i class="bi bi-book-half" v-if="day[i] !== undefined"/> {{ day[i]?.discipline.name }}<br>
               <i class="bi bi-mortarboard" v-if="day[i] !== undefined"/> {{ day[i]?.teacher.surname }}
