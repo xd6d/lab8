@@ -1,11 +1,11 @@
 <template>
   <Table link="schedules" :headers="['Предмет', 'Викладач', 'Група', 'Пара', 'День', 'Авдиторія']"
-         :properties="[{name:'discipline', type:'select', selectOptions: {value: disciplines, label: 'name'}},
-                       {name:'teacher', type:'select', selectOptions: {value: teachers, label: 'fullName'}},
-                       {name:'group', type:'select', selectOptions: {value: groups, label: 'name'}},
-                       {name:'lesson', type:'selectConvert', selectOptions: {value: lessons, label: 'value', reduce:(o)=>o.id, convert: convertLesson}},
-                       {name:'dayOfWeek', type:'selectConvert', selectOptions: {value: daysOfWeek, reduce:(o)=>o.id, label: 'name', convert: convertDayOfWeek}},
-                       {name:'classroom', type:'text'}
+         :properties="[{name:'discipline', type:'select', minWidth: '21%', selectOptions: {value: disciplines, label: 'name'}},
+                       {name:'teacher', type:'select', minWidth: '17%', selectOptions: {value: teachers, label: 'fullName'}},
+                       {name:'group', type:'select', minWidth: '10%', selectOptions: {value: groups, label: 'name'}},
+                       {name:'lesson', type:'selectConvert', minWidth: '8%', selectOptions: {value: lessons, label: 'value', reduce:(o)=>o.id, convert: convertLesson}},
+                       {name:'dayOfWeek', type:'selectConvert', minWidth: '11%', selectOptions: {value: daysOfWeek, reduce:(o)=>o.id, label: 'name', convert: convertDayOfWeek}},
+                       {name:'classroom', type:'text', minWidth: '7%'}
                        ]"
          :label="(o) => o.discipline.name"/>
 </template>

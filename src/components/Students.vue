@@ -4,7 +4,7 @@
                        {name:'surname', type:'text'},
                        {name:'email', type:'email'},
                        {name:'phone', type:'tel'},
-                       {name:'group', type:'select', selectOptions: {value: groups, label: 'name'}}
+                       {name:'group', type:'select', minWidth: '10%', selectOptions: {value: groups, label: 'name'}}
                        ]"
          :start-params="{sortField:'surname'}"
          :search-function="searchFunction"

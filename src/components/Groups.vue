@@ -2,7 +2,7 @@
   <Table link="groups" :headers="['Назва', 'Курс', 'Департамент']"
          :properties="[{name:'name', type:'text'},
                        {name:'course', type:'text'},
-                       {name:'department', type:'select', selectOptions: {value: departments, label: 'name'}}]"
+                       {name:'department', type:'select', minWidth: '33%', selectOptions: {value: departments, label: 'name'}}]"
          :label="(o) => o.name"/>
 </template>
 

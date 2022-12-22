@@ -6,7 +6,7 @@
     </div>
   </div>
   <form class="border border-start my-2" v-show="createForm" @submit.prevent="createObject()">
-    <fieldset class="d-flex p-2">
+    <fieldset class="d-flex p-2 align-items-center">
       <legend class="m-0">Створити</legend>
       <textarea placeholder="Питання" class="me-1 form-control" v-model="newFaq['question']" rows="4"></textarea>
       <textarea placeholder="Відповідь" class="me-1 form-control" v-model="newFaq['answer']" rows="4"></textarea>

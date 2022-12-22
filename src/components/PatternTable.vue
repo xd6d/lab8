@@ -9,20 +9,16 @@
     </div>
   </div>
   <form class="border border-start my-2" v-show="createForm" @submit.prevent="createObject()">
-    <fieldset class="d-flex p-2">
+    <fieldset class="p-2 d-flex align-items-center justify-content-end">
       <legend class="m-0">Створити</legend>
-      <div v-for="property of properties" class="me-1">
-<!--        TODO do we need v-bind:id="property.name+'new'" ?-->
+      <div v-for="property of properties" class="me-1" v-bind:style="{minWidth: getMinWidth(property)}">
         <input v-if="property.type==='text' || !property.type" type="text" class="form-control"
-               v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
         <input v-else-if="property.type==='email'" type="email" class="form-control"
-               v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]">
         <input v-else-if="property.type==='number'" type="number" class="form-control"
-               v-bind:id="property.name+'new'"
                v-model="newObject[property.name]"
                v-bind:placeholder="headers[properties.indexOf(property)]"
                v-bind:min="property.min"
@@ -43,7 +39,6 @@
                   v-model="newObject[property.name]"
                   :reduce="property.selectOptions.reduce" :options="property.selectOptions.value"
                   :label="property.selectOptions.label"></v-select>
-
       </div>
       <button class="btn btn-outline-secondary">Створити</button>
     </fieldset>
@@ -171,6 +166,11 @@ export default {
         const error = JSON.parse(erString.message);
         this.error = error[0];
       }
+    },
+    getMinWidth(property){
+      if (property.minWidth)
+        return property.minWidth
+      return 'auto'
     },
     async update(object) {
       try {

@@ -2,7 +2,7 @@
   <Table link="departments" :headers="['Назва', 'Скорочена назва', 'Факультет']"
          :properties="[{name:'name', type:'text'},
                        {name:'shortName', type:'text'},
-                       {name:'faculty', type:'select', selectOptions: {value: faculties, label: 'shortName'}}]"
+                       {name:'faculty', type:'select', minWidth: '12%', selectOptions: {value: faculties, label: 'shortName'}}]"
          :label="(o) => o.shortName"/>
 </template>
 
