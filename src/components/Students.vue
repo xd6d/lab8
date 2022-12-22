@@ -18,7 +18,7 @@ export default {
   name: "Students",
   components: {Table},
   data: () => ({
-    groups: ''
+    groups: []
   }),
   methods: {
     searchFunction(link, value){

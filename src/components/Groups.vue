@@ -14,7 +14,7 @@ export default {
   name: "Groups",
   components: {Table},
   data: () => ({
-    departments: ''
+    departments: []
   }),
   methods: {
     getDepartments() {

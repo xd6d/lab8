@@ -132,7 +132,7 @@ export default {
   },
   data: () => ({
     searchContent: '',
-    objects: '',
+    objects: [],
     error: '',
     createForm: false,
     updateRemove: true,

@@ -1,7 +1,6 @@
 <template>
   <h5 class="text-center text-danger" v-show="error">{{ error.message }}</h5>
-  <div class="d-flex flex-row justify-content-between mb-1">
-    <input v-model="searchContent" placeholder="Пошук" class="form-control-sm border">
+  <div class="d-flex flex-row justify-content-end mb-1">
     <div class="btn-group-sm mx-1 me-2">
       <button class="btn btn-outline-dark" @click="showCreate()"><i class="bi-plus-lg"/></button>
     </div>

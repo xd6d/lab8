@@ -19,10 +19,10 @@ export default {
   components: {Table},
   data: () => ({
     group: '',
-    groups: '',
-    schedules: '',
-    disciplines: '',
-    teachers: '',
+    groups: [],
+    schedules: [],
+    disciplines: [],
+    teachers: [],
     daysOfWeek: [
       {name: 'Понеділок', id: 1},
       {id: 2, name: 'Вівторок'},

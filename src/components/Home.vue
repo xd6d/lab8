@@ -5,9 +5,9 @@
               v-model="this.group"
               id="select"/>
   </form>
-  <div class="container-fluid mt-4" v-if="this.group">
+  <div class="container-fluid mt-3" v-if="this.group">
     <div class="row">
-      <div class="col" v-for="day of days">
+      <div class="col my-1" v-for="day of days">
         <div class="card">
           <h4 class="card-header" v-text="day.name"></h4>
           <div class="card-body bg-secondary bg-opacity-10">
@@ -38,7 +38,7 @@ export default {
   components: {Table, vSelect},
   data: () => ({
     group: '',
-    groups: '',
+    groups: [],
     schedulesByGroup: '',
     days: [
       {name: 'Понеділок', index: 1},

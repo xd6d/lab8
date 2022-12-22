@@ -14,7 +14,7 @@ export default {
   name: "Departments",
   components: {Table},
   data: () => ({
-    faculties: ''
+    faculties: []
   }),
   methods: {
     getFaculties() {
