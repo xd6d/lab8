@@ -3,6 +3,7 @@ Front-end for university project
 
 ### Description
 The goal of the task was to develop schedule website in Ukrainian language with CRUD operations possible for **all** entities using web interface. 
+Back-end: https://github.com/NikPaukov/web-lab-10
 
 ### Website`s snapshots
 <p align="center">
